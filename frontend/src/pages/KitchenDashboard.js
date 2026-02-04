@@ -92,7 +92,7 @@ const OrderCard = ({ order, onStatusUpdate }) => {
             <span>{item.quantity}x {item.name}</span>
             {order.status === "ordered" && (
               <span className="text-muted-foreground">
-                ${(item.price * item.quantity).toFixed(2)}
+                formatPrice(item.price * item.quantity)
               </span>
             )}
           </div>
@@ -102,7 +102,7 @@ const OrderCard = ({ order, onStatusUpdate }) => {
         <div className="border-t border-border pt-2 mb-3">
           <div className="flex justify-between font-bold">
             <span>Total</span>
-            <span className="text-primary">${order.totalAmount.toFixed(2)}</span>
+            <span className="text-primary">formatPrice(order.totalAmount)</span>
           </div>
         </div>
       )}
@@ -356,7 +356,7 @@ export default function KitchenDashboard() {
                               <div>
                                 <div className="font-semibold">{item.name}</div>
                                 <div className="text-sm text-muted-foreground">
-                                  ${item.price.toFixed(2)}
+                                  formatPrice(item.price)
                                 </div>
                               </div>
                             </div>
