@@ -11,6 +11,116 @@ import { toast } from "sonner";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+const OrderCard = ({ order, onStatusUpdate }) => {
+  const getStatusColor = (status) => {
+    const colors = {
+      ordered: "border-blue-500",
+      accepted: "border-yellow-500",
+      preparing: "border-orange-500",
+      ready: "border-green-500"
+    };
+    return colors[status] || "border-gray-500";
+  };
+
+  const getStatusBadgeColor = (status) => {
+    const colors = {
+      ordered: "bg-blue-500",
+      accepted: "bg-yellow-500",
+      preparing: "bg-orange-500",
+      ready: "bg-green-500"
+    };
+    return colors[status] || "bg-gray-500";
+  };
+
+  const getTimeSince = (timestamp) => {
+    const now = new Date();
+    const orderTime = new Date(timestamp);
+    const diffMinutes = Math.floor((now - orderTime) / 60000);
+    
+    if (diffMinutes < 1) return "Just now";
+    if (diffMinutes === 1) return "1 minute ago";
+    return `${diffMinutes} minutes ago`;
+  };
+
+  const getStatusLabel = (status) => {
+    const labels = {
+      ordered: "New",
+      accepted: "Accepted",
+      preparing: "Preparing",
+      ready: "Ready"
+    };
+    return labels[status] || status;
+  };
+
+  const getNextStatus = (status) => {
+    const nextStatuses = {
+      ordered: { status: "accepted", label: "Accept Order", color: "bg-yellow-500 hover:bg-yellow-600" },
+      accepted: { status: "preparing", label: "Start Preparing", color: "bg-orange-500 hover:bg-orange-600" },
+      preparing: { status: "ready", label: "Mark as Ready", color: "bg-green-500 hover:bg-green-600" },
+      ready: { status: "served", label: "Mark as Served", color: "bg-purple-500 hover:bg-purple-600" }
+    };
+    return nextStatuses[status];
+  };
+
+  const nextAction = getNextStatus(order.status);
+
+  return (
+    <div
+      data-testid={`order-${order.orderId}`}
+      className={`bg-white rounded-lg border-l-4 ${getStatusColor(order.status)} shadow-sm p-4`}
+    >
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <div className="font-bold text-lg">Table {order.tableNumber}</div>
+          <div className="text-xs text-muted-foreground flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            {getTimeSince(order.timestamp)}
+          </div>
+        </div>
+        <Badge className={getStatusBadgeColor(order.status)}>
+          {getStatusLabel(order.status)}
+        </Badge>
+      </div>
+      <div className="space-y-1 mb-3">
+        {order.items.map((item, idx) => (
+          <div key={idx} className="text-sm flex justify-between">
+            <span>{item.quantity}x {item.name}</span>
+            {order.status === "ordered" && (
+              <span className="text-muted-foreground">
+                ${(item.price * item.quantity).toFixed(2)}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+      {order.status === "ordered" && (
+        <div className="border-t border-border pt-2 mb-3">
+          <div className="flex justify-between font-bold">
+            <span>Total</span>
+            <span className="text-primary">${order.totalAmount.toFixed(2)}</span>
+          </div>
+        </div>
+      )}
+      {order.status === "ready" && (
+        <div className="text-sm text-muted-foreground mb-2">
+          Waiter: {order.waiterName}
+        </div>
+      )}
+      {nextAction && (
+        <Button
+          data-testid={`update-status-${order.orderId}-btn`}
+          onClick={() => onStatusUpdate(order.orderId, nextAction.status)}
+          className={`w-full ${nextAction.color} text-white rounded-lg`}
+          size="sm"
+        >
+          {order.status === "ready" && <CheckCircle className="h-4 w-4 mr-1" />}
+          {nextAction.label}
+        </Button>
+      )}
+    </div>
+  );
+};
+
 export default function KitchenDashboard() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
@@ -25,10 +135,8 @@ export default function KitchenDashboard() {
 
   const fetchData = async () => {
     try {
-      const [ordersRes, menuRes] = await Promise.all([
-        axios.get(`${API}/kitchen/orders`),
-        axios.get(`${API}/menu`)
-      ]);
+      const ordersRes = await axios.get(`${API}/kitchen/orders`);
+      const menuRes = await axios.get(`${API}/menu`);
       setOrders(ordersRes.data);
       setMenuItems(menuRes.data);
       setLoading(false);
@@ -63,36 +171,6 @@ export default function KitchenDashboard() {
     }
   };
 
-  const getStatusColor = (status) => {
-    const colors = {
-      ordered: "border-blue-500",
-      accepted: "border-yellow-500",
-      preparing: "border-orange-500",
-      ready: "border-green-500"
-    };
-    return colors[status] || "border-gray-500";
-  };
-
-  const getStatusBadgeColor = (status) => {
-    const colors = {
-      ordered: "bg-blue-500",
-      accepted: "bg-yellow-500",
-      preparing: "bg-orange-500",
-      ready: "bg-green-500"
-    };
-    return colors[status] || "bg-gray-500";
-  };
-
-  const getTimeSince = (timestamp) => {
-    const now = new Date();
-    const orderTime = new Date(timestamp);
-    const diffMinutes = Math.floor((now - orderTime) / 60000);
-    
-    if (diffMinutes < 1) return "Just now";
-    if (diffMinutes === 1) return "1 minute ago";
-    return `${diffMinutes} minutes ago`;
-  };
-
   const groupedOrders = {
     ordered: orders.filter(o => o.status === "ordered"),
     accepted: orders.filter(o => o.status === "accepted"),
@@ -100,7 +178,7 @@ export default function KitchenDashboard() {
     ready: orders.filter(o => o.status === "ready")
   };
 
-  const categories = [...new Set(menuItems.map(item => item.category))];
+  const categories = Array.from(new Set(menuItems.map(item => item.category)));
 
   if (loading) {
     return (
@@ -115,7 +193,6 @@ export default function KitchenDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <div className="sticky top-0 z-40 bg-card border-b border-border shadow-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -152,10 +229,8 @@ export default function KitchenDashboard() {
             </TabsTrigger>
           </TabsList>
 
-          {/* Orders Tab */}
           <TabsContent value="orders">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* New Orders Column */}
               <div>
                 <div className="bg-blue-500 text-white px-4 py-3 rounded-t-xl font-semibold flex items-center justify-between">
                   <span>New Orders</span>
@@ -171,55 +246,13 @@ export default function KitchenDashboard() {
                       </p>
                     ) : (
                       groupedOrders.ordered.map(order => (
-                        <div
-                          key={order.orderId}
-                          data-testid={`order-${order.orderId}`}
-                          className={`bg-white rounded-lg border-l-4 ${getStatusColor(order.status)} shadow-sm p-4`}
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <div className="font-bold text-lg">Table {order.tableNumber}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {getTimeSince(order.timestamp)}
-                              </div>
-                            </div>
-                            <Badge className={getStatusBadgeColor(order.status)}>
-                              New
-                            </Badge>
-                          </div>
-                          <div className="space-y-1 mb-3">
-                            {order.items.map((item, idx) => (
-                              <div key={idx} className="text-sm flex justify-between">
-                                <span>{item.quantity}x {item.name}</span>
-                                <span className="text-muted-foreground">
-                                  ${(item.price * item.quantity).toFixed(2)}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="border-t border-border pt-2 mb-3">
-                            <div className="flex justify-between font-bold">
-                              <span>Total</span>
-                              <span className="text-primary">${order.totalAmount.toFixed(2)}</span>
-                            </div>
-                          </div>
-                          <Button
-                            data-testid={`accept-order-${order.orderId}-btn`}
-                            onClick={() => updateOrderStatus(order.orderId, "accepted")}
-                            className="w-full bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
-                            size="sm"
-                          >
-                            Accept Order
-                          </Button>
-                        </div>
+                        <OrderCard key={order.orderId} order={order} onStatusUpdate={updateOrderStatus} />
                       ))
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Accepted Column */}
               <div>
                 <div className="bg-yellow-500 text-white px-4 py-3 rounded-t-xl font-semibold flex items-center justify-between">
                   <span>Accepted</span>
@@ -235,46 +268,13 @@ export default function KitchenDashboard() {
                       </p>
                     ) : (
                       groupedOrders.accepted.map(order => (
-                        <div
-                          key={order.orderId}
-                          data-testid={`order-${order.orderId}`}
-                          className={`bg-white rounded-lg border-l-4 ${getStatusColor(order.status)} shadow-sm p-4`}
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <div className="font-bold text-lg">Table {order.tableNumber}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {getTimeSince(order.timestamp)}
-                              </div>
-                            </div>
-                            <Badge className={getStatusBadgeColor(order.status)}>
-                              Accepted
-                            </Badge>
-                          </div>
-                          <div className="space-y-1 mb-3">
-                            {order.items.map((item, idx) => (
-                              <div key={idx} className="text-sm flex justify-between">
-                                <span>{item.quantity}x {item.name}</span>
-                              </div>
-                            ))}
-                          </div>
-                          <Button
-                            data-testid={`start-preparing-${order.orderId}-btn`}
-                            onClick={() => updateOrderStatus(order.orderId, "preparing")}
-                            className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg"
-                            size="sm"
-                          >
-                            Start Preparing
-                          </Button>
-                        </div>
+                        <OrderCard key={order.orderId} order={order} onStatusUpdate={updateOrderStatus} />
                       ))
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Preparing Column */}
               <div>
                 <div className="bg-orange-500 text-white px-4 py-3 rounded-t-xl font-semibold flex items-center justify-between">
                   <span>Preparing</span>
@@ -290,46 +290,13 @@ export default function KitchenDashboard() {
                       </p>
                     ) : (
                       groupedOrders.preparing.map(order => (
-                        <div
-                          key={order.orderId}
-                          data-testid={`order-${order.orderId}`}
-                          className={`bg-white rounded-lg border-l-4 ${getStatusColor(order.status)} shadow-sm p-4`}
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <div className="font-bold text-lg">Table {order.tableNumber}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {getTimeSince(order.timestamp)}
-                              </div>
-                            </div>
-                            <Badge className={getStatusBadgeColor(order.status)}>
-                              Preparing
-                            </Badge>
-                          </div>
-                          <div className="space-y-1 mb-3">
-                            {order.items.map((item, idx) => (
-                              <div key={idx} className="text-sm flex justify-between">
-                                <span>{item.quantity}x {item.name}</span>
-                              </div>
-                            ))}
-                          </div>
-                          <Button
-                            data-testid={`mark-ready-${order.orderId}-btn`}
-                            onClick={() => updateOrderStatus(order.orderId, "ready")}
-                            className="w-full bg-green-500 hover:bg-green-600 text-white rounded-lg"
-                            size="sm"
-                          >
-                            Mark as Ready
-                          </Button>
-                        </div>
+                        <OrderCard key={order.orderId} order={order} onStatusUpdate={updateOrderStatus} />
                       ))
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Ready Column */}
               <div>
                 <div className="bg-green-500 text-white px-4 py-3 rounded-t-xl font-semibold flex items-center justify-between">
                   <span>Ready</span>
@@ -345,43 +312,7 @@ export default function KitchenDashboard() {
                       </p>
                     ) : (
                       groupedOrders.ready.map(order => (
-                        <div
-                          key={order.orderId}
-                          data-testid={`order-${order.orderId}`}
-                          className={`bg-white rounded-lg border-l-4 ${getStatusColor(order.status)} shadow-sm p-4`}
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <div className="font-bold text-lg">Table {order.tableNumber}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {getTimeSince(order.timestamp)}
-                              </div>
-                            </div>
-                            <Badge className={getStatusBadgeColor(order.status)}>
-                              Ready
-                            </Badge>
-                          </div>
-                          <div className="space-y-1 mb-3">
-                            {order.items.map((item, idx) => (
-                              <div key={idx} className="text-sm flex justify-between">
-                                <span>{item.quantity}x {item.name}</span>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="text-sm text-muted-foreground mb-2">
-                            Waiter: {order.waiterName}
-                          </div>
-                          <Button
-                            data-testid={`mark-served-${order.orderId}-btn`}
-                            onClick={() => updateOrderStatus(order.orderId, "served")}
-                            className="w-full bg-purple-500 hover:bg-purple-600 text-white rounded-lg"
-                            size="sm"
-                          >
-                            <CheckCircle className="h-4 w-4 mr-1" />
-                            Mark as Served
-                          </Button>
-                        </div>
+                        <OrderCard key={order.orderId} order={order} onStatusUpdate={updateOrderStatus} />
                       ))
                     )}
                   </div>
@@ -390,7 +321,6 @@ export default function KitchenDashboard() {
             </div>
           </TabsContent>
 
-          {/* Menu Management Tab */}
           <TabsContent value="menu">
             <div className="max-w-6xl mx-auto">
               <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
