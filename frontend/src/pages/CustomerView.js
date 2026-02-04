@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { ShoppingCart, Star, Clock, User, ChevronLeft, Plus, Minus, CreditCard, X } from "lucide-react";
+import { ShoppingCart, Star, Clock, User, Plus, Minus, CreditCard, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
