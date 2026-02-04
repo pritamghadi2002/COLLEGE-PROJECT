@@ -339,7 +339,7 @@ export default function CustomerView() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-primary">
-                    ${item.price.toFixed(2)}
+                    formatPrice(item.price)
                   </span>
                   <Button
                     data-testid={`add-to-cart-${item.id}-btn`}
@@ -401,7 +401,7 @@ export default function CustomerView() {
                       <div className="flex-1">
                         <h4 className="font-semibold mb-1">{item.name}</h4>
                         <p className="text-sm text-muted-foreground mb-2">
-                          ${item.price.toFixed(2)} each
+                          formatPrice(item.price) each
                         </p>
                         <div className="flex items-center gap-2">
                           <Button
