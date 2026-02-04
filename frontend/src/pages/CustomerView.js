@@ -271,7 +271,7 @@ export default function CustomerView() {
               </div>
             </div>
             <div className="text-right">
-              <div className="font-bold text-lg">formatPrice(currentOrder.totalAmount)</div>
+              <div className="font-bold text-lg">{formatPrice(currentOrder.totalAmount)}</div>
               {!currentOrder.isPaid && currentOrder.status === "ready" && (
                 <Button
                   data-testid="pay-now-btn"
@@ -340,7 +340,7 @@ export default function CustomerView() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-primary">
-                    formatPrice(item.price)
+                    {formatPrice(item.price)}
                   </span>
                   <Button
                     data-testid={`add-to-cart-${item.id}-btn`}
@@ -402,7 +402,7 @@ export default function CustomerView() {
                       <div className="flex-1">
                         <h4 className="font-semibold mb-1">{item.name}</h4>
                         <p className="text-sm text-muted-foreground mb-2">
-                          formatPrice(item.price) each
+                          {formatPrice(item.price)} each
                         </p>
                         <div className="flex items-center gap-2">
                           <Button
@@ -439,7 +439,7 @@ export default function CustomerView() {
                       </div>
                       <div className="text-right">
                         <div className="font-bold text-lg">
-                          formatPrice(item.price * item.quantity)
+                          {formatPrice(item.price * item.quantity)}
                         </div>
                       </div>
                     </div>
@@ -453,7 +453,7 @@ export default function CustomerView() {
                 <div className="flex items-center justify-between mb-4 text-lg">
                   <span className="font-semibold">Total</span>
                   <span className="text-2xl font-bold text-primary">
-                    formatPrice(getTotalAmount())
+                    {formatPrice(getTotalAmount())}
                   </span>
                 </div>
                 <Button
@@ -482,7 +482,7 @@ export default function CustomerView() {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-lg">
                 <span>Order Total</span>
-                <span className="font-bold">formatPrice(currentOrder.totalAmount)</span>
+                <span className="font-bold">{formatPrice(currentOrder.totalAmount)}</span>
               </div>
               <div className="border-t border-border pt-4">
                 <p className="text-sm text-muted-foreground mb-4 text-center">
@@ -596,7 +596,7 @@ export default function CustomerView() {
                       {order.items.length} items
                     </div>
                     <div className="font-bold text-lg text-primary">
-                      formatPrice(order.totalAmount)
+                      {formatPrice(order.totalAmount)}
                     </div>
                   </div>
                 ))}
