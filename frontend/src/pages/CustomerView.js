@@ -459,7 +459,7 @@ export default function CustomerView() {
                 <Button
                   data-testid="place-order-btn"
                   onClick={placeOrder}
-                  disabled={currentOrder !== null}
+                  disabled={cart.length === 0 || (currentOrder && ["ordered", "accepted", "preparing", "ready"].includes(currentOrder.status))}
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full py-6 text-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                 >
                   Place Order
