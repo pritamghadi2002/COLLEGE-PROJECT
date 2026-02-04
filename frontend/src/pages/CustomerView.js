@@ -12,6 +12,11 @@ const API = `${BACKEND_URL}/api`;
 
 const categories = ["Pizza", "Burgers", "Indian", "Odisha Special", "Desserts", "Drinks"];
 
+// Format price in INR
+const formatPrice = (price) => {
+  return `₹${Math.round(price)}`;
+};
+
 export default function CustomerView() {
   const { tableNumber } = useParams();
   const [activeCategory, setActiveCategory] = useState("Pizza");
