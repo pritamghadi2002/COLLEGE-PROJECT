@@ -270,7 +270,7 @@ export default function CustomerView() {
               </div>
             </div>
             <div className="text-right">
-              <div className="font-bold text-lg">${currentOrder.totalAmount.toFixed(2)}</div>
+              <div className="font-bold text-lg">formatPrice(currentOrder.totalAmount)</div>
               {!currentOrder.isPaid && currentOrder.status === "ready" && (
                 <Button
                   data-testid="pay-now-btn"
@@ -481,7 +481,7 @@ export default function CustomerView() {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-lg">
                 <span>Order Total</span>
-                <span className="font-bold">${currentOrder.totalAmount.toFixed(2)}</span>
+                <span className="font-bold">formatPrice(currentOrder.totalAmount)</span>
               </div>
               <div className="border-t border-border pt-4">
                 <p className="text-sm text-muted-foreground mb-4 text-center">
