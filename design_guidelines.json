@@ -1,0 +1,153 @@
+{
+  "design_system": {
+    "brand_name": "Smart Dine",
+    "theme": "Warm Bistro & Modern Digital",
+    "typography": {
+      "font_family": {
+        "heading": "Playfair Display, serif",
+        "body": "DM Sans, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-4xl md:text-6xl font-bold tracking-tight",
+        "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+        "h3": "text-2xl font-semibold",
+        "body_lg": "text-lg leading-relaxed",
+        "body_base": "text-base leading-relaxed",
+        "caption": "text-sm text-muted-foreground uppercase tracking-wider"
+      }
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "default": "hsl(24, 95%, 50%)",
+          "foreground": "hsl(0, 0%, 100%)",
+          "hover": "hsl(24, 95%, 45%)"
+        },
+        "secondary": {
+          "default": "hsl(30, 20%, 90%)",
+          "foreground": "hsl(20, 15%, 15%)"
+        },
+        "background": {
+          "default": "hsl(36, 30%, 98%)",
+          "paper": "hsl(0, 0%, 100%)",
+          "subtle": "hsl(36, 20%, 95%)"
+        },
+        "text": {
+          "primary": "hsl(20, 15%, 15%)",
+          "secondary": "hsl(20, 10%, 40%)",
+          "muted": "hsl(20, 5%, 60%)"
+        },
+        "status": {
+          "success": "hsl(142, 76%, 36%)",
+          "warning": "hsl(48, 96%, 53%)",
+          "error": "hsl(0, 84%, 60%)",
+          "info": "hsl(217, 91%, 60%)"
+        }
+      },
+      "css_vars": {
+        "background": "36 30% 98%",
+        "foreground": "20 15% 15%",
+        "card": "0 0% 100%",
+        "card-foreground": "20 15% 15%",
+        "popover": "0 0% 100%",
+        "popover-foreground": "20 15% 15%",
+        "primary": "24 95% 50%",
+        "primary-foreground": "0 0% 100%",
+        "secondary": "30 20% 90%",
+        "secondary-foreground": "20 15% 15%",
+        "muted": "36 20% 95%",
+        "muted-foreground": "20 5% 60%",
+        "accent": "30 30% 96%",
+        "accent-foreground": "24 95% 50%",
+        "destructive": "0 84% 60%",
+        "destructive-foreground": "0 0% 98%",
+        "border": "30 10% 90%",
+        "input": "30 10% 90%",
+        "ring": "24 95% 50%",
+        "radius": "0.75rem"
+      }
+    },
+    "layout": {
+      "spacing": {
+        "container_padding": "p-4 md:p-8 lg:p-12",
+        "section_gap": "gap-8 md:gap-12",
+        "card_padding": "p-6"
+      },
+      "border_radius": {
+        "default": "rounded-xl",
+        "button": "rounded-full",
+        "card": "rounded-2xl"
+      },
+      "shadows": {
+        "card": "shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+        "hover": "shadow-[0_8px_24px_rgba(230,81,0,0.15)]",
+        "floating": "shadow-[0_12px_32px_rgba(0,0,0,0.1)]"
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 font-medium transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20",
+        "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full px-6 py-4 font-medium transition-all",
+        "outline": "border-2 border-primary/20 text-primary hover:bg-primary/5 rounded-full px-6 py-4 font-medium transition-all",
+        "icon": "h-12 w-12 rounded-full flex items-center justify-center transition-all hover:bg-accent"
+      },
+      "cards": {
+        "menu_item": "group relative overflow-hidden bg-card rounded-2xl border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-hover",
+        "kitchen_ticket": "bg-white rounded-lg border-l-4 shadow-sm p-4 flex flex-col gap-3"
+      },
+      "inputs": {
+        "default": "h-12 rounded-xl border-border bg-white/50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "backgrounds": {
+        "welcome_hero": "https://images.unsplash.com/photo-1765448054070-0a37ade9477e?q=80&w=2000&auto=format&fit=crop"
+      },
+      "food": {
+        "pizza": "https://images.unsplash.com/photo-1693609929769-169a70ebd994?q=80&w=800&auto=format&fit=crop",
+        "burger": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop",
+        "indian": "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?q=80&w=800&auto=format&fit=crop",
+        "dessert": "https://images.unsplash.com/photo-1673551490243-f29547426841?q=80&w=800&auto=format&fit=crop",
+        "drink": "https://images.unsplash.com/photo-1676105797000-323c37de780c?q=80&w=800&auto=format&fit=crop"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "preferred_icons": ["Utensils", "ChefHat", "ShoppingCart", "CreditCard", "Star", "Clock", "CheckCircle", "XCircle", "Minus", "Plus", "Search", "Filter"]
+    }
+  },
+  "pages": {
+    "customer_view": {
+      "path": "/:tableNumber",
+      "layout": "Split screen or Top-Nav based on device. Mobile: Bottom Nav.",
+      "sections": [
+        "Welcome Screen (Hero Image + Table #)",
+        "Category Tabs (Sticky)",
+        "Menu Grid (Masonry or Uniform)",
+        "Cart Drawer (Slide-over)",
+        "Order Status Overlay"
+      ]
+    },
+    "kitchen_dashboard": {
+      "path": "/kitchen",
+      "layout": "Kanban Board or Grid View",
+      "features": [
+        "Order Cards (Color coded by time)",
+        "Status Toggles (Preparing -> Ready)",
+        "Availability Manager (Toggle switches)"
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lucide-react' and 'framer-motion' immediately.",
+    "2. THEME: Update 'index.css' with the provided CSS variables in the 'root' layer. This is CRITICAL for the warm theme.",
+    "3. FONTS: Add '@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@400;600;700&display=swap');' to index.css.",
+    "4. ANIMATION: Use framer-motion for page transitions and cart opening. Use 'layout' prop for smooth list reordering.",
+    "5. KITCHEN UI: Make the Kitchen Dashboard high-contrast. Use the 'kitchen_ticket' card style. Green border-left for Ready, Yellow for Preparing.",
+    "6. IMAGES: Use the provided Unsplash URLs for the sample data. Do not use placeholders.",
+    "7. TESTING: Add 'data-testid' to all buttons (e.g., 'add-to-cart-btn', 'pay-now-btn')."
+  ]
+}
