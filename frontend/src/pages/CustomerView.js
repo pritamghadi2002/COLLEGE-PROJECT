@@ -452,7 +452,7 @@ export default function CustomerView() {
                 <div className="flex items-center justify-between mb-4 text-lg">
                   <span className="font-semibold">Total</span>
                   <span className="text-2xl font-bold text-primary">
-                    ${getTotalAmount().toFixed(2)}
+                    formatPrice(getTotalAmount())
                   </span>
                 </div>
                 <Button
