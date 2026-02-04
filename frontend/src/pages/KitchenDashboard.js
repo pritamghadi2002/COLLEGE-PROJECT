@@ -11,6 +11,11 @@ import { toast } from "sonner";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Format price in INR
+const formatPrice = (price) => {
+  return `₹${Math.round(price)}`;
+};
+
 const OrderCard = ({ order, onStatusUpdate }) => {
   const getStatusColor = (status) => {
     const colors = {
