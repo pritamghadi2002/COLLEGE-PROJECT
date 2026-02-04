@@ -113,7 +113,8 @@ export default function CustomerView() {
       return;
     }
 
-    if (currentOrder) {
+    // Check if there's an active order (not completed or served)
+    if (currentOrder && ["ordered", "accepted", "preparing", "ready"].includes(currentOrder.status)) {
       toast.error("Please wait for current order to complete");
       return;
     }
