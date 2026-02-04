@@ -283,7 +283,7 @@ export default function CustomerView() {
 
       {/* Category Tabs */}
       <div className="sticky top-[73px] z-30 bg-background border-b border-border">
-        <ScrollArea className="w-full whitespace-nowrap">
+        <div className="overflow-x-auto w-full whitespace-nowrap">
           <div className="flex gap-2 p-4 container mx-auto">
             {categories.map(category => (
               <button
@@ -300,7 +300,7 @@ export default function CustomerView() {
               </button>
             ))}
           </div>
-        </ScrollArea>
+        </div>
       </div>
 
       {/* Menu Items */}
