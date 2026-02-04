@@ -374,7 +374,7 @@ export default function CustomerView() {
               </Button>
             </div>
 
-            <ScrollArea className="flex-1 p-6">
+            <div className="flex-1 p-6 overflow-y-auto">
               {cart.length === 0 ? (
                 <div className="text-center py-12">
                   <ShoppingCart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
@@ -440,7 +440,7 @@ export default function CustomerView() {
                   ))}
                 </div>
               )}
-            </ScrollArea>
+            </div>
 
             {cart.length > 0 && (
               <div className="p-6 border-t border-border bg-card">
