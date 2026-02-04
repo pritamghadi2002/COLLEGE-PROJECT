@@ -204,37 +204,47 @@ async def initialize_data():
     if existing_menu > 0:
         return {"message": "Data already initialized"}
     
-    # Sample menu items
+    # Sample menu items with INR pricing
     menu_items = [
         # Pizzas
-        {"id": str(uuid.uuid4()), "name": "Margherita Pizza", "category": "Pizza", "price": 12.99, "availability": True, "image": "https://images.unsplash.com/photo-1693609929769-169a70ebd994?q=80&w=800&auto=format&fit=crop", "description": "Classic pizza with fresh mozzarella and basil"},
-        {"id": str(uuid.uuid4()), "name": "Pepperoni Pizza", "category": "Pizza", "price": 14.99, "availability": True, "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop", "description": "Loaded with pepperoni and cheese"},
-        {"id": str(uuid.uuid4()), "name": "Veggie Supreme", "category": "Pizza", "price": 13.99, "availability": True, "image": "https://images.unsplash.com/photo-1571066811602-716837d681de?q=80&w=800&auto=format&fit=crop", "description": "Fresh vegetables and herbs"},
-        {"id": str(uuid.uuid4()), "name": "BBQ Chicken Pizza", "category": "Pizza", "price": 15.99, "availability": True, "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop", "description": "Grilled chicken with BBQ sauce"},
+        {"id": str(uuid.uuid4()), "name": "Margherita Pizza", "category": "Pizza", "price": 249, "availability": True, "image": "https://images.unsplash.com/photo-1693609929769-169a70ebd994?q=80&w=800&auto=format&fit=crop", "description": "Classic pizza with fresh mozzarella and basil"},
+        {"id": str(uuid.uuid4()), "name": "Pepperoni Pizza", "category": "Pizza", "price": 299, "availability": True, "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop", "description": "Loaded with pepperoni and cheese"},
+        {"id": str(uuid.uuid4()), "name": "Veggie Supreme", "category": "Pizza", "price": 269, "availability": True, "image": "https://images.unsplash.com/photo-1571066811602-716837d681de?q=80&w=800&auto=format&fit=crop", "description": "Fresh vegetables and herbs"},
+        {"id": str(uuid.uuid4()), "name": "BBQ Chicken Pizza", "category": "Pizza", "price": 329, "availability": True, "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop", "description": "Grilled chicken with BBQ sauce"},
         
         # Burgers
-        {"id": str(uuid.uuid4()), "name": "Classic Burger", "category": "Burgers", "price": 9.99, "availability": True, "image": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop", "description": "Juicy beef patty with fresh toppings"},
-        {"id": str(uuid.uuid4()), "name": "Cheese Burger", "category": "Burgers", "price": 10.99, "availability": True, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop", "description": "Double cheese with special sauce"},
-        {"id": str(uuid.uuid4()), "name": "Chicken Burger", "category": "Burgers", "price": 11.99, "availability": True, "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=800&auto=format&fit=crop", "description": "Crispy chicken with lettuce"},
-        {"id": str(uuid.uuid4()), "name": "Veggie Burger", "category": "Burgers", "price": 8.99, "availability": True, "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=800&auto=format&fit=crop", "description": "Plant-based patty with fresh veggies"},
+        {"id": str(uuid.uuid4()), "name": "Classic Burger", "category": "Burgers", "price": 179, "availability": True, "image": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop", "description": "Juicy beef patty with fresh toppings"},
+        {"id": str(uuid.uuid4()), "name": "Cheese Burger", "category": "Burgers", "price": 199, "availability": True, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop", "description": "Double cheese with special sauce"},
+        {"id": str(uuid.uuid4()), "name": "Chicken Burger", "category": "Burgers", "price": 219, "availability": True, "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=800&auto=format&fit=crop", "description": "Crispy chicken with lettuce"},
+        {"id": str(uuid.uuid4()), "name": "Veggie Burger", "category": "Burgers", "price": 159, "availability": True, "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=800&auto=format&fit=crop", "description": "Plant-based patty with fresh veggies"},
         
         # Indian
-        {"id": str(uuid.uuid4()), "name": "Butter Chicken", "category": "Indian", "price": 13.99, "availability": True, "image": "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?q=80&w=800&auto=format&fit=crop", "description": "Creamy tomato curry with chicken"},
-        {"id": str(uuid.uuid4()), "name": "Paneer Tikka", "category": "Indian", "price": 11.99, "availability": True, "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop", "description": "Grilled cottage cheese with spices"},
-        {"id": str(uuid.uuid4()), "name": "Biryani", "category": "Indian", "price": 14.99, "availability": True, "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop", "description": "Aromatic rice with chicken and spices"},
-        {"id": str(uuid.uuid4()), "name": "Dal Makhani", "category": "Indian", "price": 9.99, "availability": True, "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop", "description": "Creamy black lentils"},
+        {"id": str(uuid.uuid4()), "name": "Butter Chicken", "category": "Indian", "price": 279, "availability": True, "image": "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?q=80&w=800&auto=format&fit=crop", "description": "Creamy tomato curry with chicken"},
+        {"id": str(uuid.uuid4()), "name": "Paneer Tikka", "category": "Indian", "price": 229, "availability": True, "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop", "description": "Grilled cottage cheese with spices"},
+        {"id": str(uuid.uuid4()), "name": "Biryani", "category": "Indian", "price": 299, "availability": True, "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop", "description": "Aromatic rice with chicken and spices"},
+        
+        # Odisha Special
+        {"id": str(uuid.uuid4()), "name": "Pakhala Bhata", "category": "Odisha Special", "price": 149, "availability": True, "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop", "description": "Traditional fermented rice with curd"},
+        {"id": str(uuid.uuid4()), "name": "Dalma", "category": "Odisha Special", "price": 169, "availability": True, "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop", "description": "Lentils with vegetables and mild spices"},
+        {"id": str(uuid.uuid4()), "name": "Santula", "category": "Odisha Special", "price": 139, "availability": True, "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop", "description": "Mixed vegetable curry without oil"},
+        {"id": str(uuid.uuid4()), "name": "Machha Besara", "category": "Odisha Special", "price": 249, "availability": True, "image": "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?q=80&w=800&auto=format&fit=crop", "description": "Fish curry with mustard paste"},
+        {"id": str(uuid.uuid4()), "name": "Chingudi Malai Curry", "category": "Odisha Special", "price": 329, "availability": True, "image": "https://images.unsplash.com/photo-1633504581786-316c8002b1b9?q=80&w=800&auto=format&fit=crop", "description": "Prawn curry with coconut milk"},
+        {"id": str(uuid.uuid4()), "name": "Chuda Mixture", "category": "Odisha Special", "price": 89, "availability": True, "image": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?q=80&w=800&auto=format&fit=crop", "description": "Flattened rice snack mix"},
+        {"id": str(uuid.uuid4()), "name": "Enduri Pitha", "category": "Odisha Special", "price": 119, "availability": True, "image": "https://images.unsplash.com/photo-1626777639573-3f7cb1e83f50?q=80&w=800&auto=format&fit=crop", "description": "Rice cake with coconut and jaggery"},
+        {"id": str(uuid.uuid4()), "name": "Chhena Poda", "category": "Odisha Special", "price": 159, "availability": True, "image": "https://images.unsplash.com/photo-1612182062366-efe3dd8c6c11?q=80&w=800&auto=format&fit=crop", "description": "Baked cottage cheese dessert"},
+        {"id": str(uuid.uuid4()), "name": "Rasabali", "category": "Odisha Special", "price": 139, "availability": True, "image": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=800&auto=format&fit=crop", "description": "Fried cheese patties in sweet syrup"},
         
         # Desserts
-        {"id": str(uuid.uuid4()), "name": "Chocolate Cake", "category": "Desserts", "price": 6.99, "availability": True, "image": "https://images.unsplash.com/photo-1673551490243-f29547426841?q=80&w=800&auto=format&fit=crop", "description": "Rich chocolate layer cake"},
-        {"id": str(uuid.uuid4()), "name": "Cheesecake", "category": "Desserts", "price": 7.99, "availability": True, "image": "https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80&w=800&auto=format&fit=crop", "description": "Creamy New York style cheesecake"},
-        {"id": str(uuid.uuid4()), "name": "Ice Cream", "category": "Desserts", "price": 4.99, "availability": True, "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=800&auto=format&fit=crop", "description": "Assorted flavors"},
-        {"id": str(uuid.uuid4()), "name": "Gulab Jamun", "category": "Desserts", "price": 5.99, "availability": True, "image": "https://images.unsplash.com/photo-1645177628172-a94c30a67536?q=80&w=800&auto=format&fit=crop", "description": "Traditional Indian sweet"},
+        {"id": str(uuid.uuid4()), "name": "Chocolate Cake", "category": "Desserts", "price": 129, "availability": True, "image": "https://images.unsplash.com/photo-1673551490243-f29547426841?q=80&w=800&auto=format&fit=crop", "description": "Rich chocolate layer cake"},
+        {"id": str(uuid.uuid4()), "name": "Cheesecake", "category": "Desserts", "price": 149, "availability": True, "image": "https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80&w=800&auto=format&fit=crop", "description": "Creamy New York style cheesecake"},
+        {"id": str(uuid.uuid4()), "name": "Ice Cream", "category": "Desserts", "price": 99, "availability": True, "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=800&auto=format&fit=crop", "description": "Assorted flavors"},
+        {"id": str(uuid.uuid4()), "name": "Gulab Jamun", "category": "Desserts", "price": 109, "availability": True, "image": "https://images.unsplash.com/photo-1645177628172-a94c30a67536?q=80&w=800&auto=format&fit=crop", "description": "Traditional Indian sweet"},
         
         # Drinks
-        {"id": str(uuid.uuid4()), "name": "Fresh Juice", "category": "Drinks", "price": 3.99, "availability": True, "image": "https://images.unsplash.com/photo-1676105797000-323c37de780c?q=80&w=800&auto=format&fit=crop", "description": "Freshly squeezed juice"},
-        {"id": str(uuid.uuid4()), "name": "Soft Drink", "category": "Drinks", "price": 2.99, "availability": True, "image": "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=800&auto=format&fit=crop", "description": "Chilled soft drinks"},
-        {"id": str(uuid.uuid4()), "name": "Lassi", "category": "Drinks", "price": 3.99, "availability": True, "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=800&auto=format&fit=crop", "description": "Traditional yogurt drink"},
-        {"id": str(uuid.uuid4()), "name": "Coffee", "category": "Drinks", "price": 3.49, "availability": True, "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop", "description": "Freshly brewed coffee"}
+        {"id": str(uuid.uuid4()), "name": "Fresh Juice", "category": "Drinks", "price": 79, "availability": True, "image": "https://images.unsplash.com/photo-1676105797000-323c37de780c?q=80&w=800&auto=format&fit=crop", "description": "Freshly squeezed juice"},
+        {"id": str(uuid.uuid4()), "name": "Soft Drink", "category": "Drinks", "price": 59, "availability": True, "image": "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=800&auto=format&fit=crop", "description": "Chilled soft drinks"},
+        {"id": str(uuid.uuid4()), "name": "Lassi", "category": "Drinks", "price": 79, "availability": True, "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=800&auto=format&fit=crop", "description": "Traditional yogurt drink"},
+        {"id": str(uuid.uuid4()), "name": "Masala Chai", "category": "Drinks", "price": 49, "availability": True, "image": "https://images.unsplash.com/photo-1597318112874-629d369a9b87?q=80&w=800&auto=format&fit=crop", "description": "Spiced Indian tea"}
     ]
     
     await db.menu_items.insert_many(menu_items)
