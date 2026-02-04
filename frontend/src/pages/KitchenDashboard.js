@@ -228,7 +228,7 @@ export default function KitchenDashboard() {
                     {groupedOrders.accepted.length}
                   </Badge>
                 </div>
-                <ScrollArea className="h-[calc(100vh-280px)] bg-muted/20 rounded-b-xl p-4">
+                <div className="h-[calc(100vh-280px)] bg-muted/20 rounded-b-xl p-4 overflow-y-auto">
                   <div className="space-y-4">
                     {groupedOrders.accepted.length === 0 ? (
                       <p className="text-center text-muted-foreground py-8 text-sm">
@@ -272,7 +272,7 @@ export default function KitchenDashboard() {
                       ))
                     )}
                   </div>
-                </ScrollArea>
+                </div>
               </div>
 
               {/* Preparing Column */}
