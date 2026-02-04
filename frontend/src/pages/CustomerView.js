@@ -438,7 +438,7 @@ export default function CustomerView() {
                       </div>
                       <div className="text-right">
                         <div className="font-bold text-lg">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          formatPrice(item.price * item.quantity)
                         </div>
                       </div>
                     </div>
