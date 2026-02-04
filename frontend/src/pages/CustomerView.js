@@ -595,7 +595,7 @@ export default function CustomerView() {
                       {order.items.length} items
                     </div>
                     <div className="font-bold text-lg text-primary">
-                      ${order.totalAmount.toFixed(2)}
+                      formatPrice(order.totalAmount)
                     </div>
                   </div>
                 ))}
