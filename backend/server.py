@@ -120,6 +120,64 @@ async def update_menu_availability(item_id: str, update: MenuItemUpdate):
         raise HTTPException(status_code=404, detail="Menu item not found")
     return {"message": "Availability updated successfully"}
 
+# Admin CRUD endpoints
+@api_router.post("/admin/menu", response_model=MenuItem)
+async def create_menu_item(item: MenuItemCreate):
+    menu_item = MenuItem(**item.model_dump())
+    doc = menu_item.model_dump()
+    await db.menu_items.insert_one(doc)
+    return menu_item
+
+@api_router.put("/admin/menu/{item_id}", response_model=MenuItem)
+async def update_menu_item(item_id: str, update: MenuItemUpdateFull):
+    update_data = {k: v for k, v in update.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields to update")
+    
+    result = await db.menu_items.update_one(
+        {"id": item_id},
+        {"$set": update_data}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Menu item not found")
+    
+    item = await db.menu_items.find_one({"id": item_id}, {"_id": 0})
+    return item
+
+@api_router.delete("/admin/menu/{item_id}")
+async def delete_menu_item(item_id: str):
+    result = await db.menu_items.delete_one({"id": item_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Menu item not found")
+    return {"message": "Menu item deleted successfully"}
+
+# Image upload endpoint
+@api_router.post("/admin/upload-image")
+async def upload_image(file: UploadFile = File(...)):
+    # Create uploads directory if it doesn't exist
+    upload_dir = Path("/app/backend/uploads")
+    upload_dir.mkdir(exist_ok=True)
+    
+    # Generate unique filename
+    file_extension = Path(file.filename).suffix
+    unique_filename = f"{uuid.uuid4()}{file_extension}"
+    file_path = upload_dir / unique_filename
+    
+    # Save file
+    with file_path.open("wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    # Return URL path
+    return {"imageUrl": f"/api/images/{unique_filename}"}
+
+# Serve uploaded images
+@api_router.get("/images/{filename}")
+async def get_image(filename: str):
+    file_path = Path("/app/backend/uploads") / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Image not found")
+    return FileResponse(file_path)
+
 # Tables endpoints
 @api_router.get("/tables", response_model=List[Table])
 async def get_tables():
