@@ -291,10 +291,10 @@ async def initialize_data():
         {"id": str(uuid.uuid4()), "name": "BBQ Chicken Pizza", "category": "Pizza", "price": 329, "availability": True, "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop", "description": "Grilled chicken with BBQ sauce", "vegType": "non-veg"},
         
         # Burgers
-        {"id": str(uuid.uuid4()), "name": "Classic Burger", "category": "Burgers", "price": 179, "availability": True, "image": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop", "description": "Juicy beef patty with fresh toppings"},
-        {"id": str(uuid.uuid4()), "name": "Cheese Burger", "category": "Burgers", "price": 199, "availability": True, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop", "description": "Double cheese with special sauce"},
-        {"id": str(uuid.uuid4()), "name": "Chicken Burger", "category": "Burgers", "price": 219, "availability": True, "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=800&auto=format&fit=crop", "description": "Crispy chicken with lettuce"},
-        {"id": str(uuid.uuid4()), "name": "Veggie Burger", "category": "Burgers", "price": 159, "availability": True, "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=800&auto=format&fit=crop", "description": "Plant-based patty with fresh veggies"},
+        {"id": str(uuid.uuid4()), "name": "Classic Burger", "category": "Burgers", "price": 179, "availability": True, "image": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop", "description": "Juicy beef patty with fresh toppings", "vegType": "non-veg"},
+        {"id": str(uuid.uuid4()), "name": "Cheese Burger", "category": "Burgers", "price": 199, "availability": True, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop", "description": "Double cheese with special sauce", "vegType": "veg"},
+        {"id": str(uuid.uuid4()), "name": "Chicken Burger", "category": "Burgers", "price": 219, "availability": True, "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=800&auto=format&fit=crop", "description": "Crispy chicken with lettuce", "vegType": "non-veg"},
+        {"id": str(uuid.uuid4()), "name": "Veggie Burger", "category": "Burgers", "price": 159, "availability": True, "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=800&auto=format&fit=crop", "description": "Plant-based patty with fresh veggies", "vegType": "veg"},
         
         # Indian
         {"id": str(uuid.uuid4()), "name": "Butter Chicken", "category": "Indian", "price": 279, "availability": True, "image": "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?q=80&w=800&auto=format&fit=crop", "description": "Creamy tomato curry with chicken"},
