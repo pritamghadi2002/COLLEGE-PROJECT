@@ -285,10 +285,10 @@ async def initialize_data():
     # Sample menu items with INR pricing
     menu_items = [
         # Pizzas
-        {"id": str(uuid.uuid4()), "name": "Margherita Pizza", "category": "Pizza", "price": 249, "availability": True, "image": "https://images.unsplash.com/photo-1693609929769-169a70ebd994?q=80&w=800&auto=format&fit=crop", "description": "Classic pizza with fresh mozzarella and basil"},
-        {"id": str(uuid.uuid4()), "name": "Pepperoni Pizza", "category": "Pizza", "price": 299, "availability": True, "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop", "description": "Loaded with pepperoni and cheese"},
-        {"id": str(uuid.uuid4()), "name": "Veggie Supreme", "category": "Pizza", "price": 269, "availability": True, "image": "https://images.unsplash.com/photo-1571066811602-716837d681de?q=80&w=800&auto=format&fit=crop", "description": "Fresh vegetables and herbs"},
-        {"id": str(uuid.uuid4()), "name": "BBQ Chicken Pizza", "category": "Pizza", "price": 329, "availability": True, "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop", "description": "Grilled chicken with BBQ sauce"},
+        {"id": str(uuid.uuid4()), "name": "Margherita Pizza", "category": "Pizza", "price": 249, "availability": True, "image": "https://images.unsplash.com/photo-1693609929769-169a70ebd994?q=80&w=800&auto=format&fit=crop", "description": "Classic pizza with fresh mozzarella and basil", "vegType": "veg"},
+        {"id": str(uuid.uuid4()), "name": "Pepperoni Pizza", "category": "Pizza", "price": 299, "availability": True, "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop", "description": "Loaded with pepperoni and cheese", "vegType": "non-veg"},
+        {"id": str(uuid.uuid4()), "name": "Veggie Supreme", "category": "Pizza", "price": 269, "availability": True, "image": "https://images.unsplash.com/photo-1571066811602-716837d681de?q=80&w=800&auto=format&fit=crop", "description": "Fresh vegetables and herbs", "vegType": "veg"},
+        {"id": str(uuid.uuid4()), "name": "BBQ Chicken Pizza", "category": "Pizza", "price": 329, "availability": True, "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop", "description": "Grilled chicken with BBQ sauce", "vegType": "non-veg"},
         
         # Burgers
         {"id": str(uuid.uuid4()), "name": "Classic Burger", "category": "Burgers", "price": 179, "availability": True, "image": "https://images.unsplash.com/photo-1619810816144-223f5b027aea?q=80&w=800&auto=format&fit=crop", "description": "Juicy beef patty with fresh toppings"},
