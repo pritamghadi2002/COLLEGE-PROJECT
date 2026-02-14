@@ -100,8 +100,47 @@ export default function TableSelection() {
           ))}
         </div>
 
-        {/* Kitchen Access */}
-        <div className="flex justify-center">
+        {/* Menu Categories */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-center mb-6">Browse Menu</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <Button
+              onClick={() => navigate("/veg")}
+              className="h-24 bg-green-600 hover:bg-green-700 text-white rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:scale-105"
+              data-testid="veg-menu-btn"
+            >
+              <span className="text-3xl">🥗</span>
+              <span className="font-semibold">Veg</span>
+            </Button>
+            <Button
+              onClick={() => navigate("/non-veg")}
+              className="h-24 bg-red-600 hover:bg-red-700 text-white rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:scale-105"
+              data-testid="non-veg-menu-btn"
+            >
+              <span className="text-3xl">🍖</span>
+              <span className="font-semibold">Non-Veg</span>
+            </Button>
+            <Button
+              onClick={() => navigate("/starters")}
+              className="h-24 bg-orange-600 hover:bg-orange-700 text-white rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:scale-105"
+              data-testid="starters-menu-btn"
+            >
+              <span className="text-3xl">🍤</span>
+              <span className="font-semibold">Starters</span>
+            </Button>
+            <Button
+              onClick={() => navigate("/breakfast")}
+              className="h-24 bg-yellow-600 hover:bg-yellow-700 text-white rounded-2xl flex flex-col items-center justify-center gap-2 transition-all hover:scale-105"
+              data-testid="breakfast-menu-btn"
+            >
+              <span className="text-3xl">🍳</span>
+              <span className="font-semibold">Breakfast</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Kitchen & Admin Access */}
+        <div className="flex justify-center gap-4 flex-wrap">
           <Button
             data-testid="kitchen-dashboard-btn"
             onClick={() => navigate("/kitchen")}
@@ -110,6 +149,15 @@ export default function TableSelection() {
           >
             <ChefHat className="mr-2 h-5 w-5" />
             Kitchen Dashboard
+          </Button>
+          <Button
+            data-testid="admin-panel-btn"
+            onClick={() => navigate("/admin")}
+            size="lg"
+            variant="outline"
+            className="rounded-full px-8 py-6 font-medium transition-all hover:scale-105 active:scale-95"
+          >
+            Admin Panel
           </Button>
         </div>
       </div>
