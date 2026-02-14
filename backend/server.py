@@ -32,6 +32,24 @@ class MenuItem(BaseModel):
     availability: bool = True
     image: str
     description: str
+    vegType: str = "veg"  # veg, non-veg, starter, breakfast
+
+class MenuItemCreate(BaseModel):
+    name: str
+    category: str
+    price: float
+    description: str
+    image: str = ""
+    vegType: str = "veg"
+
+class MenuItemUpdateFull(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    price: Optional[float] = None
+    description: Optional[str] = None
+    image: Optional[str] = None
+    availability: Optional[bool] = None
+    vegType: Optional[str] = None
 
 class MenuItemUpdate(BaseModel):
     availability: bool
