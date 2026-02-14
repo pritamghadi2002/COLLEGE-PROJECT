@@ -322,7 +322,19 @@ async def initialize_data():
         {"id": str(uuid.uuid4()), "name": "Fresh Juice", "category": "Drinks", "price": 79, "availability": True, "image": "https://images.unsplash.com/photo-1676105797000-323c37de780c?q=80&w=800&auto=format&fit=crop", "description": "Freshly squeezed juice"},
         {"id": str(uuid.uuid4()), "name": "Soft Drink", "category": "Drinks", "price": 59, "availability": True, "image": "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=800&auto=format&fit=crop", "description": "Chilled soft drinks"},
         {"id": str(uuid.uuid4()), "name": "Lassi", "category": "Drinks", "price": 79, "availability": True, "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=800&auto=format&fit=crop", "description": "Traditional yogurt drink"},
-        {"id": str(uuid.uuid4()), "name": "Masala Chai", "category": "Drinks", "price": 49, "availability": True, "image": "https://images.unsplash.com/photo-1597318112874-629d369a9b87?q=80&w=800&auto=format&fit=crop", "description": "Spiced Indian tea"}
+        {"id": str(uuid.uuid4()), "name": "Masala Chai", "category": "Drinks", "price": 49, "availability": True, "image": "https://images.unsplash.com/photo-1597318112874-629d369a9b87?q=80&w=800&auto=format&fit=crop", "description": "Spiced Indian tea", "vegType": "veg"},
+        
+        # Starters
+        {"id": str(uuid.uuid4()), "name": "Paneer Tikka", "category": "Starters", "price": 189, "availability": True, "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop", "description": "Grilled cottage cheese with spices", "vegType": "starter"},
+        {"id": str(uuid.uuid4()), "name": "Chicken Wings", "category": "Starters", "price": 229, "availability": True, "image": "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=800&auto=format&fit=crop", "description": "Crispy fried chicken wings", "vegType": "starter"},
+        {"id": str(uuid.uuid4()), "name": "Veg Spring Rolls", "category": "Starters", "price": 149, "availability": True, "image": "https://images.unsplash.com/photo-1625398407796-82650a8c135f?q=80&w=800&auto=format&fit=crop", "description": "Crispy vegetable spring rolls", "vegType": "starter"},
+        {"id": str(uuid.uuid4()), "name": "Fish Fingers", "category": "Starters", "price": 249, "availability": True, "image": "https://images.unsplash.com/photo-1580959375944-2c303cc0ffb7?q=80&w=800&auto=format&fit=crop", "description": "Golden fried fish fingers", "vegType": "starter"},
+        
+        # Breakfast
+        {"id": str(uuid.uuid4()), "name": "Masala Dosa", "category": "Breakfast", "price": 119, "availability": True, "image": "https://images.unsplash.com/photo-1694672749170-b37c10e1a935?q=80&w=800&auto=format&fit=crop", "description": "Crispy rice crepe with potato filling", "vegType": "breakfast"},
+        {"id": str(uuid.uuid4()), "name": "Idli Sambar", "category": "Breakfast", "price": 99, "availability": True, "image": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=800&auto=format&fit=crop", "description": "Steamed rice cakes with lentil soup", "vegType": "breakfast"},
+        {"id": str(uuid.uuid4()), "name": "Poha", "category": "Breakfast", "price": 89, "availability": True, "image": "https://images.unsplash.com/photo-1626132647523-66f5bf380027?q=80&w=800&auto=format&fit=crop", "description": "Flattened rice with spices", "vegType": "breakfast"},
+        {"id": str(uuid.uuid4()), "name": "Upma", "category": "Breakfast", "price": 79, "availability": True, "image": "https://images.unsplash.com/photo-1598511757337-fe2cafc31ba1?q=80&w=800&auto=format&fit=crop", "description": "Semolina porridge with vegetables", "vegType": "breakfast"}
     ]
     
     await db.menu_items.insert_many(menu_items)
