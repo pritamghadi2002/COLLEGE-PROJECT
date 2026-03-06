@@ -83,3 +83,7 @@ android-sdk/
 # Note: Deployment .env files should be committed
 .env.local
 .env.*.local
+-e 
+# Environment files
+*.env
+*.env.*
